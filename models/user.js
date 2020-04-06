@@ -57,7 +57,7 @@ userSchema.method = {
         if(!passowrd) return "";
 
         try{
-            return crypto.createHmac('sha256',this.salt)
+            return crypto.createHmac('sha256',this.salt)                    //Creating a Secure Password.
             .update(password)
             .digest('hex')
         }catch(err)
