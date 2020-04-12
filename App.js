@@ -1,10 +1,16 @@
+require('dotenv').config();
+
 const mongoose = require("mongoose");
 const express = require("express");
 
 const app = express();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const corsParser = require('cors');
+
 //portfolioEcom
 
-mongoose.connect('mongodb://localhost:27017/portfolioEcom',{
+mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -15,12 +21,16 @@ mongoose.connect('mongodb://localhost:27017/portfolioEcom',{
     console.log("Connectivity error")
 })
 
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(corsParser());
+
 //connection chaining
 
 
 
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 app.listen(port,()=>{
     console.log(`app is running at ${port}`);
