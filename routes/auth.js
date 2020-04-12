@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-const {signedOut} = require('../controllers/auth');
+
+const {signedOut,signUp} = require('../controllers/auth');
 
 router.get("/signout",signedOut);
 
-router.post("/signup",(req,res)=>{
-
-    res.send("user created");
-});
+router.post("/signup",signUp);
 
 module.exports = router;

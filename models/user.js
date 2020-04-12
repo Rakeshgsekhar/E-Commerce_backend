@@ -46,15 +46,15 @@ var userSchema = new Schema({
 
 userSchema.virtual("password")
     .set(function (password){
-        this._passowrd = password
+        this._password = password
         this.salt = uuidv1()
         this.usr_passcod = this.securePassword(password)
     })
-    .get(function(){return this._passowrd})
+    .get(function(){return this._password})
 
-userSchema.method = {
+userSchema.methods = {
     securePassword: function(password){
-        if(!passowrd) return "";
+        if(!password) return "";
 
         try{
             return crypto.createHmac('sha256',this.salt)                    //Creating a Secure Password.
