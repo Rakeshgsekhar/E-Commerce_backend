@@ -27,7 +27,7 @@ exports.signIn = (req,res) =>{
          }  });
     }
     User.findOne({email},(error,user)=>{
-        if(error){
+        if(error || user === undefined || user === null || user.isEmpty){
             return res.status(400).json({
                 errors:{
                     value:"User not found",
