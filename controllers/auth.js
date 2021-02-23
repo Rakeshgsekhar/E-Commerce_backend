@@ -27,7 +27,7 @@ exports.signIn = (req,res) =>{
          }  });
     }
     User.findOne({email},(error,user)=>{
-        if(error){
+        if(error || user === undefined || user === null || user.isEmpty){
             return res.status(400).json({
                 errors:{
                     value:"User not found",
@@ -77,7 +77,10 @@ exports.signUp = (req,res)=>{
     user.save((err,user)=>{
         if(err){
             return res.status(400).json({
-                err: "User Creationg failed"
+                errors:{
+                value: "User Email already Exist",
+                error: "User Creationg failed"
+            }
             });
         }else{
             res.json({
