@@ -5,7 +5,7 @@ var router = express.Router();
 const {check} = require("express-validator");
 
 
-const {signedOut,signUp,signIn} = require('../controllers/auth');
+const { signedOut, signUp, signIn,isSignedIn } = require('../controllers/auth');
 
 router.get("/signout",signedOut);
 
@@ -27,5 +27,9 @@ check("password")
 .withMessage('password Requried')
 ],
 signIn);
+
+router.get("/test", isSignedIn, (req,res) => {
+   res.json(req.auth);
+})
 
 module.exports = router;

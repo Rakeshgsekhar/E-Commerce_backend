@@ -9,6 +9,10 @@ const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 
 exports.signedOut = (req,res)=>{
+    res.clearCookie("token");
+    return res.status(200).json({
+        message: "user signed out Successfully"
+    })
 }
 
 exports.signIn = (req,res) =>{
@@ -83,4 +87,38 @@ exports.signUp = (req,res)=>{
         })
         }
     })
+}
+
+exports.isSignedIn = expressJwt({
+    secret: process.env.key,
+    userProperty: "auth" ,
+    algorithms: ['HS256']
+});
+
+exports.isAuthenticated = (req,res) => {
+    let checker = req.profile &&
+                    req.auth && 
+                    req.profile._id === req.auth._id ;
+
+    if(!checker){
+        return res.status(403).json({
+            errors:{
+                value: "FORBINDEN",
+                error: "Access denied"
+            }
+        })
+    }
+    next();
+}
+
+exports.isAdmin = (req,res) => {
+    if(req.profile.role === 0){
+        return res.status(403).json({
+            errors:{
+                value:"NO_ACCESS",
+                error:"Access denied"
+            }
+        });
+    }
+    next();
 }
