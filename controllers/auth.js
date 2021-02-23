@@ -77,7 +77,10 @@ exports.signUp = (req,res)=>{
     user.save((err,user)=>{
         if(err){
             return res.status(400).json({
-                err: "User Creationg failed"
+                errors:{
+                value: "User Email already Exist",
+                error: "User Creationg failed"
+            }
             });
         }else{
             res.json({
