@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /**  validation at router, for valitating input request body */
 const {check} = require("express-validator");
