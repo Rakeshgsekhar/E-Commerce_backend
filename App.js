@@ -8,20 +8,21 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const corsParser = require('cors');
 
-
-const authRoutes = require('./routes/auth'); 
+//Routes
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 //portfolioEcom
 
 mongoose.connect(process.env.DATABASE,{
     useNewUrlParser:true,
     useUnifiedTopology: true,
     useCreateIndex: true
-
 }).then(()=>{
     console.log("DB CONNECTED")
 }).catch(()=>{
     console.log("Connectivity error")
 })
+
 /**Middleware */
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -31,6 +32,7 @@ app.use(corsParser());
 
 /**Routes */
 app.use("/api/v1/auth",authRoutes);
+app.use("/api/v1/user",userRoutes);
 
 
 
